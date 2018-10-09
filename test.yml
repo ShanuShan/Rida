@@ -1,0 +1,9 @@
+---
+- hosts: mywebservers
+  tasks:
+  - name: Copy
+    file:
+     path: /tmp/yallo
+     owner: root
+     group: root
+    become: yes
