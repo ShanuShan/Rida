@@ -1,6 +1,0 @@
-tasks:
-  - name:Create user in IAM
-    iam:
-      iam_type:user
-      name:Tahseen
-      state:present
