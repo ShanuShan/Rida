@@ -1,9 +1,7 @@
----
-- hosts: mywebservers
-  tasks:
-  - name: Copy
-    file:
-     path: /tmp/yallo
-     owner: root
-     group: root
-    become: yes
+--- # AWS IAM MODULE
+- hosts: localhost
+   - name: Create IAM users with API keys
+     iam:
+       iam_type: user
+       name: "{{ aws_username }}"
+       state: present
