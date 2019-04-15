@@ -1,0 +1,52 @@
+#!/bin/python
+import boto3
+print ("1:Userlist")
+print ("2:Getgrouplist")
+print ("3:Create User")
+print ("4:Create Group")
+iam = boto3.client('iam')
+def Userlist():
+	users = iam.list_users()
+	user_list = users['Users']
+	for key in user_list:
+		print(key['UserName'])
+def Grouplist():
+	group = iam.list_groups()
+	group_list = group['Groups']
+	for key in group_list:
+		print(key['GroupName'])
+def Createuser():
+	try:
+		username=raw_input("Insert user name:")
+		user=iam.create_user(UserName=username)
+		resource = user['User']
+		print("Created user: %s" % resource['UserName'])
+#		user_again=raw_input("Do you want to create one more user?")
+		if raw_input("Do you want to create one more user y/n?").lower()[0]=='y':
+			Createuser()
+		else:
+			exit()
+	except iam.exceptions.EntityAlreadyExistsException:
+		print("User with name %s already Exist" %username)
+def Creategroup():
+	try:
+		groupname=raw_input("Group name to be created:")
+		group = iam.create_group(GroupName=groupname)
+		resource = group['Group']
+		print("%s group created" %resource['GroupName'])
+	except iam.exceptions.EntityAlreadyExistsException:
+		print("Group with name %s already exist" %groupname)
+	
+mycase = {
+		"1":Userlist,
+		"2":Grouplist,
+		"3":Createuser,
+		"4":Creategroup
+	}
+
+selection = raw_input("Select the desire option:")
+try:
+	myfunc = mycase[selection]
+	myfunc()
+except KeyError:
+	print("Invalid Entry")
