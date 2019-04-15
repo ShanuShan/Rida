@@ -1,7 +1,0 @@
---- # AWS IAM MODULE
-- hosts: localhost
-   - name: Create IAM users with API keys
-     iam:
-       iam_type: user
-       name: "{{ aws_username }}"
-       state: present
