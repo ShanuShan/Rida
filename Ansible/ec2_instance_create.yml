@@ -1,0 +1,9 @@
+- hosts: localhost
+  tasks:
+    - name: create ec2 instance
+      ec2:
+        image: ami-009d6802948d06e52
+        instance_type: t2.micro
+        region: us-east-1
+        count: 1
+        wait: yes

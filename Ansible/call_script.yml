@@ -1,0 +1,18 @@
+- hosts: localhost
+  tasks:
+    - name: run script locally 
+      shell: pwd
+      register: pwd
+      script: {{pwd}}/test
+    - debug:
+        msg: "User Created"
+      tags:
+         - Createuser
+    - name: Delete user
+      iam:
+         iam_type: user
+         name: tahseen
+         state: absent
+      tags:
+         - DeleteUser
+
